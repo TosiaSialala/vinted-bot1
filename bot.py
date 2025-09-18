@@ -2,7 +2,7 @@ import requests
 import os
 
 # ---- KONFIG ----
-KEYWORDS = ["ed hardy", "ecko", "billabong", "southpole", "fubu"]
+KEYWORDS = ["Ed Hardy", "Ecko", "Billabong", "Southpole", "Fubu"]
 MAX_PRICE = 50
 DISCORD_WEBHOOK = os.environ["DISCORD_WEBHOOK"]
 
@@ -14,10 +14,13 @@ def check_vinted(keyword):
     return url
 
 def main():
-    for word in KEYWORDS:
-        link = check_vinted(word)
+    for brand in KEYWORDS:
+        link = check_vinted(brand)
         payload = {
-            "content": f"🔎 Nowe oferty dla **{word}** (do {MAX_PRICE} zł, najnowsze): {link}"
+            "content": (
+                f"🆕 Nowe oferty dla marki **{brand}** "
+                f"(max {MAX_PRICE} zł, sortowanie: najnowsze):\n{link}"
+            )
         }
         requests.post(DISCORD_WEBHOOK, json=payload)
 
